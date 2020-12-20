@@ -1,6 +1,6 @@
 # native_font
 
-A Flutter plugin to load font files from native end, supporting ttf and otf formats.
+A Flutter plugin to load font files from native end, supporting ttf and otf formats. Many codes are inspired by [google_fonts](https://pub.dev/packages/google_fonts).
 
 ## Installation
 
