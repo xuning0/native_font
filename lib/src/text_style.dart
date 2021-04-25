@@ -1,6 +1,5 @@
 import 'dart:ui';
 
-import 'package:flutter/foundation.dart';
 import 'package:flutter/painting.dart';
 
 import 'native_font_family_with_variant.dart';
@@ -13,29 +12,27 @@ import 'native_font_variant.dart';
 /// This function has a side effect of loading the font into the [FontLoader]
 /// from the native bundle file system.
 TextStyle nativeFontTextStyle({
-  @required String fontFamily,
-  TextStyle textStyle,
-  Color color,
-  Color backgroundColor,
-  double fontSize,
-  FontWeight fontWeight,
-  FontStyle fontStyle,
-  double letterSpacing,
-  double wordSpacing,
-  TextBaseline textBaseline,
-  double height,
-  Locale locale,
-  Paint foreground,
-  Paint background,
-  List<Shadow> shadows,
-  List<FontFeature> fontFeatures,
-  TextDecoration decoration,
-  Color decorationColor,
-  TextDecorationStyle decorationStyle,
-  double decorationThickness,
+  required String fontFamily,
+  TextStyle? textStyle,
+  Color? color,
+  Color? backgroundColor,
+  double? fontSize,
+  FontWeight? fontWeight,
+  FontStyle? fontStyle,
+  double? letterSpacing,
+  double? wordSpacing,
+  TextBaseline? textBaseline,
+  double? height,
+  Locale? locale,
+  Paint? foreground,
+  Paint? background,
+  List<Shadow>? shadows,
+  List<FontFeature>? fontFeatures,
+  TextDecoration? decoration,
+  Color? decorationColor,
+  TextDecorationStyle? decorationStyle,
+  double? decorationThickness,
 }) {
-  assert(fontFamily != null);
-
   textStyle ??= const TextStyle();
   textStyle = textStyle.copyWith(
     color: color,

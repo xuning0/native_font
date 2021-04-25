@@ -1,6 +1,6 @@
 # native_font
 
-A Flutter plugin to load font files from native end, supporting ttf and otf formats. Many codes are inspired by [google_fonts](https://pub.dev/packages/google_fonts).
+A flutter plugin for lazily loading fonts from native side, supporting ttf and otf formats. Codes are inspired by [google_fonts](https://pub.dev/packages/google_fonts).
 
 ## Installation
 
@@ -41,7 +41,7 @@ NativeFontPlugin.fontDataHandler = ^(NSString * _Nonnull familyName, FlutterFont
 NativeFontPlugin.setFontDataHandler((familyName, fontWeight, isItalic, fontCallBack) -> {
     if (familyName.equals("Roboto")) {
         int familyId = R.font.roboto_regular;
-        if (fontWeight == FontStyle.FONT_WEIGHT_BOLD) { //700
+        if (fontWeight == FontStyle.FONT_WEIGHT_BOLD) {
             familyId = isItalic ? R.font.roboto_bold_italic : R.font.roboto_bold;
         } else if (fontWeight == FontStyle.FONT_WEIGHT_NORMAL) {
             familyId = isItalic ? R.font.roboto_italic : R.font.roboto_regular;

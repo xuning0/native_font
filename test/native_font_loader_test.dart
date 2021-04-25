@@ -22,16 +22,16 @@ void overridePrint(Future<void> testFn()) {
 }
 
 void main() {
-  const BasicMessageChannel<ByteData> channel =
-      BasicMessageChannel<ByteData>('com.xuning.native_font', BinaryCodec());
+  const BasicMessageChannel<ByteData?> channel =
+      BasicMessageChannel<ByteData?>('com.xuning.native_font', BinaryCodec());
 
   TestWidgetsFlutterBinding.ensureInitialized();
 
   final NativeFontLoader loader = NativeFontLoader();
 
-  channel.setMockMessageHandler((ByteData message) async {
+  channel.setMockMessageHandler((ByteData? message) async {
     final String jsonString =
-        const Utf8Decoder().convert(Uint8List.sublistView(message));
+        const Utf8Decoder().convert(Uint8List.sublistView(message!));
     final Map<String, dynamic> request = Map<String, dynamic>.from(
         jsonDecode(jsonString) as Map<dynamic, dynamic>);
     if (request['familyName'] == 'Test') {

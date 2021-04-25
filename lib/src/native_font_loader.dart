@@ -10,8 +10,8 @@ import 'native_font_family_with_variant.dart';
 final NativeFontLoader nativeFontLoader = NativeFontLoader();
 
 class NativeFontLoader {
-  static const BasicMessageChannel<ByteData> _channel =
-      BasicMessageChannel<ByteData>('com.xuning.native_font', BinaryCodec());
+  static const BasicMessageChannel<ByteData?> _channel =
+      BasicMessageChannel<ByteData?>('com.xuning.native_font', BinaryCodec());
 
   // Keep track of the fonts that are loaded or currently loading in FontLoader
   // for the life of the app instance. Once a font is attempted to load, it does
@@ -49,10 +49,10 @@ class NativeFontLoader {
       };
       final ByteData requestData =
           ByteData.sublistView(JsonUtf8Encoder().convert(message) as Uint8List);
-      final Future<ByteData> fontData = _loadFontFileByteData(requestData);
+      final Future<ByteData?> fontData = _loadFontFileByteData(requestData);
       if (await fontData != null) {
         final FontLoader fontLoader = FontLoader(familyWithVariantString);
-        fontLoader.addFont(fontData);
+        fontLoader.addFont(fontData as Future<ByteData>);
         fontLoader.load();
       } else {
         print(
@@ -66,8 +66,8 @@ class NativeFontLoader {
     }
   }
 
-  Future<ByteData> _loadFontFileByteData(ByteData data) async {
-    final ByteData fontData = await _channel.send(data);
+  Future<ByteData?> _loadFontFileByteData(ByteData data) async {
+    final ByteData? fontData = await _channel.send(data);
     return fontData;
   }
 }

@@ -1,14 +1,11 @@
-import 'package:flutter/foundation.dart';
-
 import 'native_font_variant.dart';
 
 /// Represents a native font variant in Flutter-specific types.
 class NativeFontFamilyWithVariant {
   const NativeFontFamilyWithVariant({
-    @required this.family,
-    @required this.nativeFontVariant,
-  })  : assert(family != null),
-        assert(nativeFontVariant != null);
+    required this.family,
+    required this.nativeFontVariant,
+  });
 
   final String family;
   final NativeFontVariant nativeFontVariant;

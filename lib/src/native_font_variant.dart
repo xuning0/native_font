@@ -1,14 +1,11 @@
 import 'dart:ui';
 
-import 'package:flutter/foundation.dart';
-
 /// Represents a native font variant in Flutter-specific types.
 class NativeFontVariant {
   const NativeFontVariant({
-    @required this.fontWeight,
-    @required this.fontStyle,
-  })  : assert(fontWeight != null),
-        assert(fontStyle != null);
+    required this.fontWeight,
+    required this.fontStyle,
+  });
 
   final FontWeight fontWeight;
   final FontStyle fontStyle;
