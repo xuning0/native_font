@@ -1,6 +1,7 @@
 #import "AppDelegate.h"
 #import "GeneratedPluginRegistrant.h"
 @import native_font;
+#import "Runner-Swift.h"
 
 @implementation AppDelegate
 
@@ -9,6 +10,9 @@
   [GeneratedPluginRegistrant registerWithRegistry:self];
   
   [self configNativeFontForFlutter];
+  
+//   Swift Usage:
+//  [SwiftUsage configNativeFontForFlutterInSwift];
   
   return [super application:application didFinishLaunchingWithOptions:launchOptions];
 }

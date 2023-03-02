@@ -1,4 +1,5 @@
 import 'dart:convert';
+// ignore: unnecessary_import
 import 'dart:typed_data';
 import 'dart:ui';
 
@@ -32,9 +33,9 @@ class NativeFontLoader {
     // error.
     if (_loadedFonts.contains(familyWithVariantString)) {
       return;
-    } else {
-      _loadedFonts.add(familyWithVariantString);
     }
+
+    _loadedFonts.add(familyWithVariantString);
 
     final String fontFamily = familyWithVariant.family;
     final int fontWeight =
@@ -49,15 +50,16 @@ class NativeFontLoader {
       };
       final ByteData requestData =
           ByteData.sublistView(JsonUtf8Encoder().convert(message) as Uint8List);
-      final Future<ByteData?> fontData = _loadFontFileByteData(requestData);
-      if (await fontData != null) {
-        final FontLoader fontLoader = FontLoader(familyWithVariantString);
-        fontLoader.addFont(fontData as Future<ByteData>);
-        fontLoader.load();
-      } else {
+      final ByteData? fontData = await _loadFontFileByteData(requestData);
+      if (fontData == null) {
         print(
             'Error: Unable to load native font $fontFamily (weight: $fontWeight, isItalic: $isItalic). Fall back to system font');
+        return;
       }
+
+      final FontLoader fontLoader = FontLoader(familyWithVariantString);
+      fontLoader.addFont(Future.value(fontData));
+      fontLoader.load();
     } catch (e) {
       _loadedFonts.remove(familyWithVariantString);
       print(

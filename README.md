@@ -13,9 +13,31 @@ dependencies:
 
 ## Usage
 
-First, register the font file data handler that can be used by Flutter on the native end as soon as possible.
+First, register the font file data handler that can be used by Flutter on the native end as early as possible.
 
 - iOS
+
+In Swift
+
+```swift
+NativeFontPlugin.fontDataHandler = { (familyName, weight, isItalic, callback) in
+  if familyName == "Roboto" {
+    var fileName = "Roboto-Regular.ttf"
+    if weight == FlutterFontWeight.weight700 {
+      fileName = isItalic ? "Roboto-BoldItalic.ttf" : "Roboto-Bold.ttf"
+    } else if weight == FlutterFontWeight.weight400 {
+      fileName = isItalic ? "Roboto-Italic.ttf" : "Roboto-Regular.ttf"
+    } else if weight == FlutterFontWeight.weight500 {
+      fileName = "Roboto-Medium.ttf"
+    }
+    callback(try! Data(contentsOf: Bundle.main.url(forResource: fileName, withExtension: nil)!))
+  } else if familyName == "Caveat" {
+    // ...
+  }
+}
+```
+
+In Objective-C
 
 ```objc
 NativeFontPlugin.fontDataHandler = ^(NSString * _Nonnull familyName, FlutterFontWeight weight, BOOL isItalic, void (^ _Nonnull callback)(NSData * _Nullable)) {
@@ -39,19 +61,19 @@ NativeFontPlugin.fontDataHandler = ^(NSString * _Nonnull familyName, FlutterFont
 
 ```java
 NativeFontPlugin.setFontDataHandler((familyName, fontWeight, isItalic, fontCallBack) -> {
-    if (familyName.equals("Roboto")) {
-        int familyId = R.font.roboto_regular;
-        if (fontWeight == FontStyle.FONT_WEIGHT_BOLD) {
-            familyId = isItalic ? R.font.roboto_bold_italic : R.font.roboto_bold;
-        } else if (fontWeight == FontStyle.FONT_WEIGHT_NORMAL) {
-            familyId = isItalic ? R.font.roboto_italic : R.font.roboto_regular;
-        } else if (fontWeight == FontStyle.FONT_WEIGHT_MEDIUM) {
-            familyId = R.font.roboto_medium;
-        }
-        fontCallBack.onFontLoadCompleted(fontResToByteBuffer(familyId));
-    } else if (familyName.equals("Caveat")) {
-        // ...
+  if (familyName.equals("Roboto")) {
+    int familyId = R.font.roboto_regular;
+    if (fontWeight == FontStyle.FONT_WEIGHT_BOLD) {
+        familyId = isItalic ? R.font.roboto_bold_italic : R.font.roboto_bold;
+    } else if (fontWeight == FontStyle.FONT_WEIGHT_NORMAL) {
+        familyId = isItalic ? R.font.roboto_italic : R.font.roboto_regular;
+    } else if (fontWeight == FontStyle.FONT_WEIGHT_MEDIUM) {
+        familyId = R.font.roboto_medium;
     }
+    fontCallBack.onFontLoadCompleted(fontResToByteBuffer(familyId));
+  } else if (familyName.equals("Caveat")) {
+    // ...
+  }
 });
 ```
 
